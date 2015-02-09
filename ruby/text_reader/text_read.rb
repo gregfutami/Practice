@@ -247,6 +247,10 @@ def get_contacts(texts)
   contacts_index = 0
 
   texts.each { |text|
+    #fix for leading 1 inf front of area code
+    if text.number.length == 11 && text.number[0] == '1'
+      text.number = text.number[1..10]
+    end
     if !(contacts.include? text.number)
       contacts[contacts_index] = text.number
       contacts_index += 1
@@ -292,7 +296,7 @@ contacts.each { |number|
 
 
 conversations.each { |c| 
-  puts "conversation with " + c.name
+  puts "conversation with " + c.name + " " + c.number
   c.print()
   puts "###################"
 }
